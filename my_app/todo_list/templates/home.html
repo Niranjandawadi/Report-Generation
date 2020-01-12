@@ -1,0 +1,47 @@
+
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+<div id="map">
+<h1><b>Please download the datas</b></h1>
+<hr>
+<p>Index Name <span id ="tab"> Value</span></p> 
+<hr>
+<hr>
+{% for d in data %}
+<p>Id <span style=margin-left:280px> {{d.id}}</span></p>
+<p>Road Access <span style=margin-left:190px> {{d.road_access}}</span></p> 
+<p>Distance from main city <span style=margin-left:120px> {{d.distance_from_main_city}}</span></p>
+<p>Slope <span style=margin-left:250px> {{d.slope}}</span></p>
+<p>Direct distance from forest <span style=margin-left:110px> {{d.direct_distance_from_forest}}</span></p>	
+<p>High voltage transmission line <span style=margin-left:98px> {{d.high_voltage_transmisison_line}}</span></p>
+<p>Flood risk level <span style=margin-left:182px> {{d.flood_risk_level}}</span></p>
+<p>Landslide risk <span style=margin-left:192px> {{d.land_slide_risk}}</span></p>
+<p>Elevation <span style=margin-left:220px> {{d.elevation}}</span></p>
+<p>Land type <span style=margin-left:190px> {{d.land_type}}</span></p>
+<p>Land use <span style=margin-left:215px> {{d.land_use}}</span></p>
+{% endfor %}
+
+<div id="demoMap"></div>
+
+</div>
+<br>
+<center><button onclick="printdiv('map')" ><b>Generate Report </b></button></center>
+<script  src="{% static 'js/OpenLayers.js' %}"></script>
+<script>
+	
+	map = new OpenLayers.Map("demoMap");
+    map.addLayer(new OpenLayers.Layer.OSM());
+    map.zoomToMaxExtent();
+
+   function printdiv(printpage)
+{
+var headstr = "<html><head><title></title></head><body>";
+var footstr = "</body>";
+var newstr = document.all.item(printpage).innerHTML;
+var oldstr = document.body.innerHTML;
+document.body.innerHTML = headstr+newstr+footstr;
+window.print();
+document.body.innerHTML = oldstr;
+return false;
+}
+</script>
